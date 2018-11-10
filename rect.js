@@ -1,9 +1,10 @@
 class Rect {
-    constructor(x,y,width,height){
+    constructor(x,y,width,height,color="green"){
         this.x1 = x;
         this.y1 = y;
         this.x2 = x + height;
         this.y2 = y + width;
+        this.color = color;
     }
 
     get width(){

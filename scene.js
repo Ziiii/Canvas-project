@@ -8,11 +8,12 @@ class Scene {
         let rects = [];
         rects.push(new Rect(10,10,10,10));
         rects.push(new Rect(30,10,10,10));
-        rects.push(new Rect(10,30,10,10));
+        rects.push(new Rect(10,30,10,10,"red"));
         this.drawRects(rects);
     }
 
     drawRect(rect){
+        this.context.fillStyle = rect.color;
         this.context.fillRect(rect.x1,rect.y1,rect.width,rect.height);
     }
 
