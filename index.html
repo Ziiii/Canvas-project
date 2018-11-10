@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="canvas.js"></script>
+    <script src="scene.js"></script>
+    <script src="rect.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
     <title>Wren task</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            let scene = new Scene('scene');
+            scene.test1();
+        });
+
+    </script>
 </head>
 <body>
     <canvas id="scene" class="scene"></canvas>
