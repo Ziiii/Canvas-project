@@ -2,17 +2,26 @@ class Rect {
     constructor(x,y,width,height,color="green"){
         this.x1 = x;
         this.y1 = y;
-        this.x2 = x + height;
-        this.y2 = y + width;
+        this.height = height;
+        this.width = width;
         this.color = color;
     }
 
-    get width(){
-        return this.y2 - this.y1;
+    get y2(){
+        return this.y1 + this.height;
     }
 
-    get height(){
-        return this.x2 - this.x1;
+    get x2(){
+        return this.x1 + this.width;
+    }
+
+    update(){
+        this.move(0.3,-0.3)
+    }
+
+    move(x,y){
+        this.x1+=x;
+        this.y1+=y;
     }
 
 }
@@ -24,8 +33,8 @@ class Rect {
     let y1 = 20;
     let width = 30;
     let height = 40;
-    let x2 = x1 + height;
-    let y2 = y1 + width;
+    let x2 = x1 + width;
+    let y2 = y1 + height;
 
     let r1 = new Rect(10,20,30,40);
     if(r1.x1 === x1 && r1.x2 === x2){

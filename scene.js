@@ -4,14 +4,6 @@ class Scene {
         this.context = this.canvas.getContext('2d');
     }
 
-    test1(){
-        let rects = [];
-        rects.push(new Rect(10,10,10,10));
-        rects.push(new Rect(30,10,10,10));
-        rects.push(new Rect(10,30,10,10,"red"));
-        this.drawRects(rects);
-    }
-
     drawRect(rect){
         this.context.fillStyle = rect.color;
         this.context.fillRect(rect.x1,rect.y1,rect.width,rect.height);
@@ -21,5 +13,9 @@ class Scene {
         for(let rect of rects){
             this.drawRect(rect);
         }
+    }
+
+    clearScene(){
+        this.context.clearRect(0,0,1000,600)
     }
 }

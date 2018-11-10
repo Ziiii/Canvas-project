@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <script src="scene.js"></script>
     <script src="rect.js"></script>
+    <script src="director.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
     <title>Wren task</title>
     <script>
+        function getRects(){
+            let rects = [];
+            // rects.push(new Rect(10,10,10,10));
+            // rects.push(new Rect(30,10,10,10));
+            rects.push(new Rect(100,100,10,10,"red"));
+            return rects;
+        }
+
         document.addEventListener("DOMContentLoaded", function(event) {
             let scene = new Scene('scene');
-            scene.test1();
+            let rects = getRects();
+            let director = new Director(scene,rects);
+            director.start()
         });
 
     </script>
