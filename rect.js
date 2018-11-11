@@ -6,6 +6,7 @@ class Rect {
         this.width = width;
         this.color = color;
         this.drag = false;
+        this.collision = false;
     }
 
     get y2() {
@@ -41,9 +42,11 @@ class Rect {
 
     IntersectorHandler(rects) {
         if (rects.some(rect=>this.isIntersected(rect))) {
+            this.collision = true;
             this.color = 'red';
         }
         else{
+            this.collision = false;
             this.color = 'green';
         }
     }
@@ -63,8 +66,12 @@ class Rect {
 
     mouseDropHandler(e){
         if(this.drag){
+            if(this.collision){
+                return false;
+            }
             this.drag = false;
         }
+        return true;
     }
 
 }

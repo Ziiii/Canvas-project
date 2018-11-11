@@ -50,9 +50,6 @@
 
         document.addEventListener("DOMContentLoaded", function(event) {
             let scene = new Scene('scene');
-            //let rects = getRects();
-            //let rects = getIntersectedRects();
-            //let rects = getDragRect();
             let rects = getMoveRects();
             let director = new Director(scene,rects);
             director.start()
@@ -61,7 +58,6 @@
     </script>
 </head>
 <body>
-    <!--<canvas id="scene" class="scene"></canvas>-->
     <canvas id="scene" class="scene" width="1000" height="600"></canvas>
 </body>
 </html>
