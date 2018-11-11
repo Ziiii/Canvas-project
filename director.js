@@ -1,32 +1,42 @@
 class Director {
-    constructor(scene,rects,updateRate=100){
+    constructor(scene, rects, updateRate = 100) {
         this.updateRate = updateRate;
         this.scene = scene;
         this.rects = rects;
         this.update = this.update.bind(this);
     }
 
-    update(){
-        for(let rect of this.rects){
+    update() {
+        for (let rect of this.rects) {
             rect.update();
         }
+
+        this.checkIntersections(this.rects);
         this.scene.clearScene();
         this.scene.drawRects(this.rects)
     }
 
-    start(){
-        this.timerId = setInterval(this.update,this.updateRate);
+    checkIntersections(rects) {
+        rects.map((rectA) => {
+            rects.map((rectB) => {
+                rectA.IntersectorHandler(rectB);
+            })
+        })
     }
 
-    end(){
+    start() {
+        this.timerId = setInterval(this.update, this.updateRate);
+    }
+
+    end() {
         clearInterval(this.timerId);
     }
 
-    test(){
+    test() {
         let rects = [];
-        rects.push(new Rect(10,10,10,10));
-        rects.push(new Rect(30,10,10,10));
-        rects.push(new Rect(10,30,10,10,"red"));
+        rects.push(new Rect(10, 10, 10, 10));
+        rects.push(new Rect(30, 10, 10, 10));
+        rects.push(new Rect(10, 30, 10, 10, "red"));
         this.drawRects(rects);
     }
 

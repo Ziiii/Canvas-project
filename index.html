@@ -16,9 +16,33 @@
             return rects;
         }
 
+        function getIntersectedRects(){
+            let rects = [];
+            rects.push(new Rect(10,10,10,30,"blue"));
+            rects.push(new Rect(5,20,25,10));
+
+            rects.push(new Rect(10,10,20,20,"blue"));
+            rects.push(new Rect(15,15,10,10));
+            rects[2].move(30,0);
+            rects[3].move(30,0);
+
+            rects.push(new Rect(10,10,20,20,"blue"));
+            rects.push(new Rect(15,15,20,20));
+            rects[4].move(60,0);
+            rects[5].move(60,0);
+
+            rects.push(new Rect(10,10,20,20,"blue"));
+            rects.push(new Rect(35,35,20,20));
+            rects[6].move(90,0);
+            rects[7].move(90,0);
+
+            return rects;
+        }
+
         document.addEventListener("DOMContentLoaded", function(event) {
             let scene = new Scene('scene');
-            let rects = getRects();
+            //let rects = getRects();
+            let rects = getIntersectedRects();
             let director = new Director(scene,rects);
             director.start()
         });
