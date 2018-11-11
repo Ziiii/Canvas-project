@@ -4,13 +4,10 @@ class Director {
         this.scene = scene;
         this.rects = rects;
         this.update = this.update.bind(this);
+        this.mouseMoveHandler = this.mouseMoveHandler.bind(this);
     }
 
     update() {
-        for (let rect of this.rects) {
-            rect.update();
-        }
-
         this.checkIntersections(this.rects);
         this.scene.clearScene();
         this.scene.drawRects(this.rects)
@@ -25,11 +22,16 @@ class Director {
     }
 
     start() {
+        this.scene.canvas.addEventListener('mousemove',this.mouseMoveHandler);
         this.timerId = setInterval(this.update, this.updateRate);
     }
 
     end() {
         clearInterval(this.timerId);
+    }
+
+    mouseMoveHandler(e){
+        this.rects.map(rect=>rect.mouseMoveHandler(e))
     }
 
     test() {

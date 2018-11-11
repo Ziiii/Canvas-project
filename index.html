@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="constants.js"></script>
     <script src="scene.js"></script>
     <script src="rect.js"></script>
     <script src="director.js"></script>
@@ -39,10 +40,18 @@
             return rects;
         }
 
+        function getDragRect(){
+            let rects = []
+            let rect = new Rect(10,10,20,20,'blue',true);
+            rects.push(rect)
+            return rects;
+        }
+
         document.addEventListener("DOMContentLoaded", function(event) {
             let scene = new Scene('scene');
             //let rects = getRects();
-            let rects = getIntersectedRects();
+            //let rects = getIntersectedRects();
+            let rects = getDragRect();
             let director = new Director(scene,rects);
             director.start()
         });
@@ -50,6 +59,7 @@
     </script>
 </head>
 <body>
-    <canvas id="scene" class="scene"></canvas>
+    <!--<canvas id="scene" class="scene"></canvas>-->
+    <canvas id="scene" class="scene" width="1000" height="600"></canvas>
 </body>
 </html>

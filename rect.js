@@ -1,10 +1,11 @@
 class Rect {
-    constructor(x, y, width, height, color = "green") {
+    constructor(x, y, width, height, color = "green",drag=false) {
         this.x1 = x;
         this.y1 = y;
         this.height = height;
         this.width = width;
         this.color = color;
+        this.drag = drag;
     }
 
     get y2() {
@@ -16,7 +17,7 @@ class Rect {
     }
 
     update() {
-        //this.move(0.3,-0.3)
+
     }
 
     move(x, y) {
@@ -34,6 +35,13 @@ class Rect {
     IntersectorHandler(rect) {
         if (rect !== this && this.isIntersected(rect)) {
             this.color = 'red';
+        }
+    }
+
+    mouseMoveHandler(e){
+        if(this.drag){
+            this.x1 = e.clientX - mouse_correction_x;
+            this.y1 = e.clientY - mouse_correction_y;
         }
     }
 
