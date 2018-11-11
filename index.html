@@ -40,10 +40,11 @@
             return rects;
         }
 
-        function getDragRect(){
-            let rects = []
-            let rect = new Rect(10,10,20,20,'blue',true);
-            rects.push(rect)
+        function getMoveRects(){
+            let rects = [];
+            rects.push(new Rect(10,10,100,100));
+            rects.push(new Rect(200,200,100,100));
+
             return rects;
         }
 
@@ -51,7 +52,8 @@
             let scene = new Scene('scene');
             //let rects = getRects();
             //let rects = getIntersectedRects();
-            let rects = getDragRect();
+            //let rects = getDragRect();
+            let rects = getMoveRects();
             let director = new Director(scene,rects);
             director.start()
         });

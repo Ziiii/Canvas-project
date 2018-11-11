@@ -1,11 +1,11 @@
 class Rect {
-    constructor(x, y, width, height, color = "green",drag=false) {
+    constructor(x, y, width, height, color = "green") {
         this.x1 = x;
         this.y1 = y;
         this.height = height;
         this.width = width;
         this.color = color;
-        this.drag = drag;
+        this.drag = false;
     }
 
     get y2() {
@@ -26,22 +26,44 @@ class Rect {
     }
 
     isIntersected(rect) {
+        if(rect === this){
+            return false;
+        }
         return !(this.y1 > rect.y2
             || this.y2 < rect.y1
             || this.x2 < rect.x1
             || this.x1 > rect.x2);
     }
 
-    IntersectorHandler(rect) {
-        if (rect !== this && this.isIntersected(rect)) {
+    isDotInRect(x, y) {
+        return (this.x1 < x && this.x2 > x && this.y1 < y && this.y2 > y)
+    }
+
+    IntersectorHandler(rects) {
+        if (rects.some(rect=>this.isIntersected(rect))) {
             this.color = 'red';
+        }
+        else{
+            this.color = 'green';
         }
     }
 
-    mouseMoveHandler(e){
-        if(this.drag){
+    mouseMoveHandler(e) {
+        if (this.drag) {
             this.x1 = e.clientX - mouse_correction_x;
             this.y1 = e.clientY - mouse_correction_y;
+        }
+    }
+
+    mouseDragHandler(e) {
+        if (this.isDotInRect(e.clientX - mouse_correction_x, e.clientY - mouse_correction_y)) {
+            this.drag = true;
+        }
+    }
+
+    mouseDropHandler(e){
+        if(this.drag){
+            this.drag = false;
         }
     }
 

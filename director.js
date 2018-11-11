@@ -1,10 +1,12 @@
 class Director {
-    constructor(scene, rects, updateRate = 100) {
+    constructor(scene, rects, updateRate = 50) {
         this.updateRate = updateRate;
         this.scene = scene;
         this.rects = rects;
+        this.drag = false;
         this.update = this.update.bind(this);
         this.mouseMoveHandler = this.mouseMoveHandler.bind(this);
+        this.mouseClickHandler = this.mouseClickHandler.bind(this);
     }
 
     update() {
@@ -15,14 +17,13 @@ class Director {
 
     checkIntersections(rects) {
         rects.map((rectA) => {
-            rects.map((rectB) => {
-                rectA.IntersectorHandler(rectB);
-            })
+            rectA.IntersectorHandler(rects);
         })
     }
 
     start() {
-        this.scene.canvas.addEventListener('mousemove',this.mouseMoveHandler);
+        this.scene.canvas.addEventListener('mousemove', this.mouseMoveHandler);
+        this.scene.canvas.addEventListener('click', this.mouseClickHandler);
         this.timerId = setInterval(this.update, this.updateRate);
     }
 
@@ -30,8 +31,20 @@ class Director {
         clearInterval(this.timerId);
     }
 
-    mouseMoveHandler(e){
-        this.rects.map(rect=>rect.mouseMoveHandler(e))
+    mouseMoveHandler(e) {
+        this.rects.map(rect => rect.mouseMoveHandler(e))
+    }
+
+    mouseClickHandler(e) {
+        if (!this.drag) {
+            this.drag = true;
+            this.rects.map(rect => rect.mouseDragHandler(e));
+        }
+        else{
+            this.drag = false;
+            this.rects.map(rect => rect.mouseDropHandler(e));
+        }
+
     }
 
     test() {
