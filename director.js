@@ -45,7 +45,7 @@ class Director {
     mouseClickHandler(e) {
         if (!this.drag) {
             this.drag = true;
-            this.rects.map(rect => rect.mouseDragHandler(e));
+            this.rects.find(rect => rect.mouseDragHandler(e));
         }
         else{
             this.rects.map(rect => rect.mouseDropHandler(e));

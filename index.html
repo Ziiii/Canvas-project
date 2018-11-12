@@ -13,13 +13,28 @@
             let rects = [];
             rects.push(new Rect(10,10,100,100));
             rects.push(new Rect(200,200,100,100));
+            rects.push(new Rect(200,200,30,100));
+            rects.push(new Rect(200,200,100,30));
+            rects.push(new Rect(200,200,80,120));
 
+            return rects;
+        }
+
+        function placeInRow(rects,offset=20){
+            let placePositionX = 10;
+            let placePositionY = 10;
+            for(let rect of rects){
+                rect.x1 = placePositionX;
+                rect.y1 = placePositionY;
+                placePositionY += offset + rect.height;
+            }
             return rects;
         }
 
         document.addEventListener("DOMContentLoaded", function(event) {
             let scene = new Scene('scene');
             let rects = getMoveRects();
+            rects = placeInRow(rects);
             let director = new Director(scene,rects);
             director.start()
         });
