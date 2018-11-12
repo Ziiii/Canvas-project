@@ -7,6 +7,7 @@ class Rect {
         this.color = color;
         this.drag = false;
         this.collision = false;
+        this.connected = []
     }
 
     get y2() {
@@ -15,6 +16,16 @@ class Rect {
 
     get x2() {
         return this.x1 + this.width;
+    }
+
+    connect(rect) {
+        this.connected.push(rect);
+        rect.connected.push(this);
+    }
+
+    disConnect(rect) {
+        this.connected = this.connected.filter(r => r !== rect);
+        rect.connected = rect.connected.filter(r => r !== this);
     }
 
     update() {
@@ -27,7 +38,7 @@ class Rect {
     }
 
     isIntersected(rect) {
-        if(rect === this){
+        if (rect === this) {
             return false;
         }
         return !(this.y1 > rect.y2
@@ -41,11 +52,11 @@ class Rect {
     }
 
     IntersectorHandler(rects) {
-        if (rects.some(rect=>this.isIntersected(rect))) {
+        if (rects.some(rect => this.isIntersected(rect))) {
             this.collision = true;
             this.color = 'red';
         }
-        else{
+        else {
             this.collision = false;
             this.color = 'green';
         }
@@ -53,6 +64,14 @@ class Rect {
 
     mouseMoveHandler(e) {
         if (this.drag) {
+            let mouseX = e.clientX - mouse_correction_x;
+            let mouseY = e.clientY - mouse_correction_y;
+
+            let dx = mouseX - this.x1;
+            let dy = mouseY - this.y1;
+
+            this.connected.map(rect=>rect.move(dx,dy));
+
             this.x1 = e.clientX - mouse_correction_x;
             this.y1 = e.clientY - mouse_correction_y;
         }
@@ -66,9 +85,9 @@ class Rect {
         }
     }
 
-    mouseDropHandler(e){
-        if(this.drag){
-            if(this.collision){
+    mouseDropHandler(e) {
+        if (this.drag) {
+            if (this.collision) {
                 this.x1 = this.startX;
                 this.y1 = this.startY;
             }
