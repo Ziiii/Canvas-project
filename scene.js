@@ -1,3 +1,6 @@
+const correctionX = 40;
+const correctionY = 40;
+
 class Scene {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
@@ -19,11 +22,11 @@ class Scene {
     }
 
     resize() {
-        this.canvas.height = window.screen.height;
-        this.canvas.width = window.screen.width;
+        this.canvas.height = window.innerHeight - correctionX;
+        this.canvas.width = window.innerWidth - correctionY;
     }
 
     clearScene() {
-        this.context.clearRect(0, 0, 1000, 600)
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
     }
 }
