@@ -6,7 +6,8 @@ class Director {
         this.drag = false;
         this.update = this.update.bind(this);
         this.mouseMoveHandler = this.mouseMoveHandler.bind(this);
-        this.mouseClickHandler = this.mouseClickHandler.bind(this);
+        this.mouseDownHandler = this.mouseDownHandler.bind(this);
+        this.mouseUpHandler = this.mouseUpHandler.bind(this);
     }
 
     update() {
@@ -22,15 +23,16 @@ class Director {
         })
     }
 
-    checkConnections(rects){
-        rects.map((rectA)=>{
+    checkConnections(rects) {
+        rects.map((rectA) => {
             rectA.nearRectsHandler(rects);
         })
     }
 
     start() {
         this.scene.canvas.addEventListener('mousemove', this.mouseMoveHandler);
-        this.scene.canvas.addEventListener('click', this.mouseClickHandler);
+        this.scene.canvas.addEventListener('mousedown', this.mouseDownHandler);
+        this.scene.canvas.addEventListener('mouseup', this.mouseUpHandler);
         this.timerId = setInterval(this.update, this.updateRate);
     }
 
@@ -42,24 +44,17 @@ class Director {
         this.rects.map(rect => rect.mouseMoveHandler(e))
     }
 
-    mouseClickHandler(e) {
+    mouseDownHandler(e) {
         if (!this.drag) {
             this.drag = true;
             this.rects.find(rect => rect.mouseDragHandler(e));
         }
-        else{
+    }
+
+    mouseUpHandler(e) {
+        if (this.drag) {
             this.rects.map(rect => rect.mouseDropHandler(e));
             this.drag = false;
         }
     }
-
-
-    test() {
-        let rects = [];
-        rects.push(new Rect(10, 10, 10, 10));
-        rects.push(new Rect(30, 10, 10, 10));
-        rects.push(new Rect(10, 30, 10, 10, "red"));
-        this.drawRects(rects);
-    }
-
 }
