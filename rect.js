@@ -41,14 +41,38 @@ class Rect {
         if (rect === this) {
             return false;
         }
-        return !(this.y1 > rect.y2
-            || this.y2 < rect.y1
-            || this.x2 < rect.x1
-            || this.x1 > rect.x2);
+
+        return Rect.isIntersected(this, rect)
+    }
+
+    static isIntersected(rectA, rectB) {
+        return !(rectA.y1 > rectB.y2
+            || rectA.y2 < rectB.y1
+            || rectA.x2 < rectB.x1
+            || rectA.x1 > rectB.x2);
     }
 
     isDotInRect(x, y) {
         return (this.x1 < x && this.x2 > x && this.y1 < y && this.y2 > y)
+    }
+
+    isNear(rect) {
+        if (rect === this) {
+            return false;
+        }
+        let biggerRect = this.getBiggerRect();
+        if (Rect.isIntersected(biggerRect, rect)) {
+            console.log("isNear!");
+        }
+    }
+
+    getBiggerRect(rate = 20) {
+        return {
+            x1: this.x1 - rate,
+            x2: this.x2 + rate,
+            y1: this.y1 - rate,
+            y2: this.y2 + rate
+        }
     }
 
     IntersectorHandler(rects) {
@@ -64,14 +88,6 @@ class Rect {
 
     mouseMoveHandler(e) {
         if (this.drag) {
-            let mouseX = e.clientX - mouse_correction_x;
-            let mouseY = e.clientY - mouse_correction_y;
-
-            let dx = mouseX - this.x1;
-            let dy = mouseY - this.y1;
-
-            this.connected.map(rect=>rect.move(dx,dy));
-
             this.x1 = e.clientX - mouse_correction_x;
             this.y1 = e.clientY - mouse_correction_y;
         }
@@ -133,19 +149,19 @@ class Rect {
 
     let a1 = new Rect(10, 10, 10, 30, "blue");
     let b1 = new Rect(5, 20, 25, 10);
-    a1.IntersectorHandler(b1);
+    a1.IntersectorHandler([b1]);
 
     let a2 = new Rect(10, 10, 20, 20, "blue");
     let b2 = new Rect(15, 15, 10, 10);
-    a2.IntersectorHandler(b2);
+    a2.IntersectorHandler([b2]);
 
     let a3 = new Rect(10, 10, 20, 20, "blue");
     let b3 = new Rect(15, 15, 20, 20);
-    a3.IntersectorHandler(b3);
+    a3.IntersectorHandler([b3]);
 
     let a4 = new Rect(10, 10, 20, 20, "blue");
     let b4 = new Rect(35, 35, 20, 20);
-    a4.IntersectorHandler(b4);
+    a4.IntersectorHandler([b4]);
 
     if (a1.color === "red"
         && a2.color === "red"

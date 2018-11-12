@@ -11,6 +11,7 @@ class Director {
 
     update() {
         this.checkIntersections(this.rects);
+        this.checkConnections(this.rects);
         this.scene.clearScene();
         this.scene.drawRects(this.rects)
     }
@@ -18,6 +19,12 @@ class Director {
     checkIntersections(rects) {
         rects.map((rectA) => {
             rectA.IntersectorHandler(rects);
+        })
+    }
+
+    checkConnections(rects){
+        rects.map((rectA)=>{
+            rects.map((rectB)=>rectB.isNear(rectA))
         })
     }
 

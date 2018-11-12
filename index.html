@@ -61,7 +61,7 @@
 
         document.addEventListener("DOMContentLoaded", function(event) {
             let scene = new Scene('scene');
-            let rects = getConnectedRects();
+            let rects = getMoveRects();
             let director = new Director(scene,rects);
             director.start()
         });
