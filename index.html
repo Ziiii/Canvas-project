@@ -9,52 +9,10 @@
     <link rel="stylesheet" type="text/css" href="main.css">
     <title>Wren task</title>
     <script>
-        function getRects(){
-            let rects = [];
-            // rects.push(new Rect(10,10,10,10));
-            // rects.push(new Rect(30,10,10,10));
-            rects.push(new Rect(100,100,10,10,"red"));
-            return rects;
-        }
-
-        function getIntersectedRects(){
-            let rects = [];
-            rects.push(new Rect(10,10,10,30,"blue"));
-            rects.push(new Rect(5,20,25,10));
-
-            rects.push(new Rect(10,10,20,20,"blue"));
-            rects.push(new Rect(15,15,10,10));
-            rects[2].move(30,0);
-            rects[3].move(30,0);
-
-            rects.push(new Rect(10,10,20,20,"blue"));
-            rects.push(new Rect(15,15,20,20));
-            rects[4].move(60,0);
-            rects[5].move(60,0);
-
-            rects.push(new Rect(10,10,20,20,"blue"));
-            rects.push(new Rect(35,35,20,20));
-            rects[6].move(90,0);
-            rects[7].move(90,0);
-
-            return rects;
-        }
-
         function getMoveRects(){
             let rects = [];
             rects.push(new Rect(10,10,100,100));
             rects.push(new Rect(200,200,100,100));
-
-            return rects;
-        }
-
-        function getConnectedRects(){
-            let rects = [];
-            let rectA = new Rect(10,10,100,100);
-            let rectB = new Rect(200,200,100,100);
-            rectA.connect(rectB);
-            rects.push(rectA);
-            rects.push(rectB);
 
             return rects;
         }

@@ -14,8 +14,16 @@ class Rect {
         return this.y1 + this.height;
     }
 
+    set y2(value){
+        this.y1 = value - this.height;
+    }
+
     get x2() {
         return this.x1 + this.width;
+    }
+
+    set x2(value){
+        this.x1 = value - this.width;
     }
 
     connect(rect) {
@@ -26,10 +34,6 @@ class Rect {
     disConnect(rect) {
         this.connected = this.connected.filter(r => r !== rect);
         rect.connected = rect.connected.filter(r => r !== this);
-    }
-
-    update() {
-
     }
 
     move(x, y) {
@@ -46,24 +50,52 @@ class Rect {
     }
 
     static isIntersected(rectA, rectB) {
-        return !(rectA.y1 > rectB.y2
-            || rectA.y2 < rectB.y1
-            || rectA.x2 < rectB.x1
-            || rectA.x1 > rectB.x2);
+        return !(rectA.y1 >= rectB.y2
+            || rectA.y2 <= rectB.y1
+            || rectA.x2 <= rectB.x1
+            || rectA.x1 >= rectB.x2);
     }
 
     isDotInRect(x, y) {
         return (this.x1 < x && this.x2 > x && this.y1 < y && this.y2 > y)
     }
 
+    setPositionToRectEdge(rect){
+        if(this.y2 < rect.y1){
+            this.y2 = rect.y1;
+            return;
+        }
+
+        if(this.y1 > rect.y2){
+            this.y1 = rect.y2;
+            return;
+        }
+
+        if(this.x2 < rect.x1){
+            this.x2 = rect.x1;
+        }
+
+        if(this.x1 > rect.x2){
+            this.x1 = rect.x2;
+        }
+    }
+
+    nearRectsHandler(rects){
+        if(this.drag){
+            let nearRect = rects.find(rect=>this.isNear(rect));
+            if(nearRect){
+                this.setPositionToRectEdge(nearRect);
+            }
+        }
+    }
+
     isNear(rect) {
         if (rect === this) {
             return false;
         }
+
         let biggerRect = this.getBiggerRect();
-        if (Rect.isIntersected(biggerRect, rect)) {
-            console.log("isNear!");
-        }
+        return Rect.isIntersected(biggerRect, rect);
     }
 
     getBiggerRect(rate = 20) {

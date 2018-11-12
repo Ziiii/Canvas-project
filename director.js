@@ -24,7 +24,7 @@ class Director {
 
     checkConnections(rects){
         rects.map((rectA)=>{
-            rects.map((rectB)=>rectB.isNear(rectA))
+            rectA.nearRectsHandler(rects);
         })
     }
 
