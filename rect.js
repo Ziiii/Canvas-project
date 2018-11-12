@@ -60,6 +60,8 @@ class Rect {
 
     mouseDragHandler(e) {
         if (this.isDotInRect(e.clientX - mouse_correction_x, e.clientY - mouse_correction_y)) {
+            this.startX = this.x1;
+            this.startY = this.y1;
             this.drag = true;
         }
     }
@@ -67,11 +69,11 @@ class Rect {
     mouseDropHandler(e){
         if(this.drag){
             if(this.collision){
-                return false;
+                this.x1 = this.startX;
+                this.y1 = this.startY;
             }
             this.drag = false;
         }
-        return true;
     }
 
 }

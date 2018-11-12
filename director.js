@@ -41,16 +41,11 @@ class Director {
             this.rects.map(rect => rect.mouseDragHandler(e));
         }
         else{
-            let drops = this.rects.map(rect => rect.mouseDropHandler(e));
-            if(this.allowedToDrop(drops)){
-                this.drag = false;
-            }
+            this.rects.map(rect => rect.mouseDropHandler(e));
+            this.drag = false;
         }
     }
 
-    allowedToDrop(drops){
-        return !drops.some(x=>x===false);
-    }
 
     test() {
         let rects = [];
