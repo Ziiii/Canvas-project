@@ -2,10 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="canvas.js"></script>
+    <script src="scripts/constants.js"></script>
+    <script src="scripts/scene.js"></script>
+    <script src="scripts/rect.js"></script>
+    <script src="scripts/director.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
     <title>Wren task</title>
+    <script>
+        function getRects(){
+            let rects = [];
+            rects.push(new Rect(10,10,100,100));
+            rects.push(new Rect(200,200,100,100));
+            rects.push(new Rect(200,200,30,100));
+            rects.push(new Rect(200,200,100,30));
+            rects.push(new Rect(200,200,80,120));
+            return rects;
+        }
+
+        function placeInRow(rects,offset=20){
+            let placePositionX = 10;
+            let placePositionY = 10;
+            for(let rect of rects){
+                rect.x1 = placePositionX;
+                rect.y1 = placePositionY;
+                placePositionY += offset + rect.height;
+            }
+
+            return rects;
+        }
+
+        document.addEventListener("DOMContentLoaded", function(e) {
+            let scene = new Scene('scene');
+            let rects = getRects();
+            rects = placeInRow(rects);
+            let director = new Director(scene,rects);
+            director.start();
+        });
+    </script>
 </head>
-<body>
-    <h1>Hello</h1>
+<body style="">
+    <canvas id="scene" class="scene"></canvas>
 </body>
 </html>
