@@ -127,6 +127,7 @@ class Rect {
             this.centeringToDot(clientX, clientY);
             return true;
         }
+
         return false;
     }
 
@@ -136,6 +137,7 @@ class Rect {
                 this.x1 = this.startX;
                 this.y1 = this.startY;
             }
+
             this.drag = false;
         }
     }
