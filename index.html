@@ -9,14 +9,13 @@
     <link rel="stylesheet" type="text/css" href="main.css">
     <title>Wren task</title>
     <script>
-        function getMoveRects(){
+        function getRects(){
             let rects = [];
             rects.push(new Rect(10,10,100,100));
             rects.push(new Rect(200,200,100,100));
             rects.push(new Rect(200,200,30,100));
             rects.push(new Rect(200,200,100,30));
             rects.push(new Rect(200,200,80,120));
-
             return rects;
         }
 
@@ -28,17 +27,17 @@
                 rect.y1 = placePositionY;
                 placePositionY += offset + rect.height;
             }
+
             return rects;
         }
 
-        document.addEventListener("DOMContentLoaded", function(event) {
+        document.addEventListener("DOMContentLoaded", function(e) {
             let scene = new Scene('scene');
-            let rects = getMoveRects();
+            let rects = getRects();
             rects = placeInRow(rects);
             let director = new Director(scene,rects);
-            director.start()
+            director.start();
         });
-
     </script>
 </head>
 <body style="">

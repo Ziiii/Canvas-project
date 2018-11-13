@@ -1,5 +1,5 @@
 class Director {
-    constructor(scene, rects, updateRate = 50) {
+    constructor(scene, rects, updateRate = updateRateDefault) {
         this.updateRate = updateRate;
         this.scene = scene;
         this.rects = rects;
@@ -12,21 +12,9 @@ class Director {
 
     update() {
         this.checkIntersections(this.rects);
-        this.checkConnections(this.rects);
+        this.checkRectsConnections(this.rects);
         this.scene.clearScene();
         this.scene.drawRects(this.rects)
-    }
-
-    checkIntersections(rects) {
-        rects.map((rectA) => {
-            rectA.IntersectorHandler(rects);
-        })
-    }
-
-    checkConnections(rects) {
-        rects.map((rectA) => {
-            rectA.nearRectsHandler(rects);
-        })
     }
 
     start() {
@@ -36,8 +24,23 @@ class Director {
         this.timerId = setInterval(this.update, this.updateRate);
     }
 
-    end() {
+    stop() {
+        this.scene.canvas.removeEventListener('mousemove', this.mouseMoveHandler);
+        this.scene.canvas.removeEventListener('mousedown', this.mouseDownHandler);
+        this.scene.canvas.removeEventListener('mouseup', this.mouseUpHandler);
         clearInterval(this.timerId);
+    }
+
+    checkIntersections(rects) {
+        rects.map((rectA) => {
+            rectA.intersectorHandler(rects);
+        })
+    }
+
+    checkRectsConnections(rects) {
+        rects.map((rectA) => {
+            rectA.nearRectsHandler(rects);
+        })
     }
 
     mouseMoveHandler(e) {
